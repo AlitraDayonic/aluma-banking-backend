@@ -1,0 +1,244 @@
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:27"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:53"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:53"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:53"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"Cleaning old data","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"Processing portfolio valuations update","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:54"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:58"}
+{"environment":"development","level":"info","message":"Cleaned 0 login records, 0 audit logs","service":"aluma-banking-api","timestamp":"2025-11-12 10:09:59"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:00"}
+{"environment":"development","level":"info","message":"Updating valuations for 0 accounts","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:01"}
+{"environment":"development","level":"info","message":"Portfolio valuations updated successfully","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:01"}
+{"environment":"development","level":"warn","message":"Job alerts:repeat:a2207a63e8fb94ef36a747af8faf0fb2:1762870500000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:14"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:14"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:10:14"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:15:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:15:04"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 10:21:51"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:02"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:02"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:02"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:04"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:04"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:04"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:04"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:04"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:22:05"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:25:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:25:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:30:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:30:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:35:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:35:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:40:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:40:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:45:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:45:10"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:50:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:50:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 10:55:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 10:55:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:00:11"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 11:00:18"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:00:44"}
+{"environment":"development","error":"Connection terminated due to connection timeout","level":"error","message":"Query error","service":"aluma-banking-api","text":"\n      UPDATE user_sessions\n      SET is_active = false\n      WHERE expires_at < CURRENT_TIMESTAMP AND is_active = true\n      RETURNING id\n    ","timestamp":"2025-11-12 11:01:19"}
+{"cause":{},"environment":"development","level":"error","message":"Failed to expire sessions: Connection terminated due to connection timeout","service":"aluma-banking-api","stack":"Error: Connection terminated due to connection timeout\n    at C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\config\\database.js:39:17)\n    at async Queue.<anonymous> (C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\jobs\\index.js:308:20)","timestamp":"2025-11-12 11:01:24"}
+{"environment":"development","level":"warn","message":"Job alerts:repeat:a2207a63e8fb94ef36a747af8faf0fb2:1762941600000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:28"}
+{"environment":"development","level":"warn","message":"Job cleanup:repeat:847a19d014497606d6bdfa348b9f08a3:1762941600000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:28"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:29"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:29"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:47"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:01:57"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:05:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:05:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:10:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:10:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:15:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:15:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:20:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:20:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:25:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:25:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:30:03"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:30:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:35:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:35:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:40:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:40:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:45:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:45:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:50:03"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:50:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 11:55:04"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 11:55:04"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:00:01"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 12:00:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:00:01"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 12:00:04"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:05:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:05:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:10:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:10:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:15:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:15:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:20:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:20:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:25:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:25:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:30:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:30:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:35:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:35:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:40:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:40:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:45:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:45:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:50:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:50:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 12:55:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 12:55:00"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 13:00:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:00:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:00:01"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 13:00:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:05:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:05:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:10:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:10:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:40:12"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:40:27"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:45:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:45:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:50:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:50:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 13:55:04"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 13:55:05"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 14:00:29"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:00:30"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 14:00:42"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:01"}
+{"environment":"development","level":"warn","message":"Job alerts:repeat:a2207a63e8fb94ef36a747af8faf0fb2:1762952400000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:07"}
+{"environment":"development","level":"warn","message":"Job cleanup:repeat:847a19d014497606d6bdfa348b9f08a3:1762952400000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:09"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:11"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:14"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:28"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 14:01:35"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:05:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:05:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:10:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:10:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:15:06"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:15:06"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:20:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:20:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:25:03"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:25:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:30:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:30:02"}
+{"environment":"development","level":"info","message":"SIGINT received. Starting graceful shutdown...","service":"aluma-banking-api","timestamp":"2025-11-12 14:32:00"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 14:54:15"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:22"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:22"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:22"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:27"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:27"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:27"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:27"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:55:31"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:05"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:12"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:12"}
+{"environment":"development","level":"warn","message":"Job alerts:repeat:a2207a63e8fb94ef36a747af8faf0fb2:1762954500000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:28"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:29"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 14:56:29"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 15:00:04"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:00:04"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 15:00:10"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:00:14"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:05:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:05:04"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:10:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:10:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:15:03"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:15:07"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:20:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:20:05"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:25:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:25:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:30:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:30:00"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:35:06"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:35:07"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:40:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:40:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:45:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:45:05"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:50:02"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:50:03"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 15:55:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 15:55:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 16:00:01"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 16:00:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 16:00:02"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 16:00:07"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 16:05:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 16:05:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 19:10:41"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 19:10:42"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 19:10:43"}
+{"environment":"development","level":"warn","message":"Job cleanup:repeat:847a19d014497606d6bdfa348b9f08a3:1762963200000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 19:11:29"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 19:11:30"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 19:11:31"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 19:11:32"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 19:58:22"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 19:58:27"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 20:00:02"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 20:00:02"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 20:00:03"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 20:00:05"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 20:05:09"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 20:05:09"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 20:10:00"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 20:10:01"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 21:03:49"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:05"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:08"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:15"}
+{"environment":"development","level":"warn","message":"Job cleanup:repeat:847a19d014497606d6bdfa348b9f08a3:1762977600000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:54"}
+{"environment":"development","level":"warn","message":"Job alerts:repeat:a2207a63e8fb94ef36a747af8faf0fb2:1762974900000 stalled","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:54"}
+{"environment":"development","level":"info","message":"Cleaning up expired sessions","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:55"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:56"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:57"}
+{"environment":"development","level":"info","message":"Expired 0 sessions","service":"aluma-banking-api","timestamp":"2025-11-12 21:04:59"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 21:05:01"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 21:05:01"}
+{"environment":"development","level":"info","message":"Checking price alerts","service":"aluma-banking-api","timestamp":"2025-11-12 21:10:08"}
+{"environment":"development","level":"info","message":"Price alerts checked. 0 triggered out of 0","service":"aluma-banking-api","timestamp":"2025-11-12 21:10:20"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:37"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:46"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:46"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:46"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:48"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:48"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:48"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-12 22:31:48"}
+{"0":"r","1":"e","2":"a","3":"s","4":"o","5":"n","6":":","environment":"development","level":"error","message":"Unhandled Rejection at:","service":"aluma-banking-api","timestamp":"2025-11-12 22:35:34"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 23:15:53"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-12 23:15:59"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-12 23:15:59"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-12 23:15:59"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-12 23:16:02"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-12 23:16:02"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-12 23:16:02"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-12 23:16:02"}
+{"environment":"development","error":"relation \"users\" does not exist","level":"error","message":"Query error","service":"aluma-banking-api","text":"SELECT COUNT(*) FROM users WHERE email = $1 AND deleted_at IS NULL","timestamp":"2025-11-12 23:18:17"}
+{"environment":"development","ip":"127.0.0.1","level":"error","message":"relation \"users\" does not exist","method":"POST","service":"aluma-banking-api","stack":"error: relation \"users\" does not exist\n    at C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\node_modules\\pg-pool\\index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\config\\database.js:45:17)\n    at async User.emailExists (C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\models\\User.js:207:20)\n    at async C:\\website work\\Aluma\\winnerscoins.com\\aluma-broker-backend\\controllers\\auth.controller.js:18:7","timestamp":"2025-11-12 23:18:17","url":"/api/v1/auth/register"}
+{"0":"r","1":"e","2":"a","3":"s","4":"o","5":"n","6":":","environment":"development","level":"error","message":"Unhandled Rejection at:","service":"aluma-banking-api","timestamp":"2025-11-12 23:19:51"}

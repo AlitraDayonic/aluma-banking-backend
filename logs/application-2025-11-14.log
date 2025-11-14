@@ -1,0 +1,27 @@
+{"environment":"development","level":"info","message":"Bull queues initialized with Redis","service":"aluma-banking-api","timestamp":"2025-11-14 17:44:32"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:14"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-14 17:45:18"}
+{"environment":"development","level":"info","message":"Bull queues initialized with Redis","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:23"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:43"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:47"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:47"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:47"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:48"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:48"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:48"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-14 18:21:48"}
+{"environment":"development","level":"info","message":"Bull queues initialized with Redis","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:09"}
+{"environment":"development","level":"info","message":"WebSocket server initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:47"}
+{"environment":"development","level":"info","message":"Database connection established","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:53"}
+{"environment":"development","level":"info","message":"Initializing background jobs...","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:53"}
+{"environment":"development","level":"info","message":"Background jobs initialized successfully","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:53"}
+{"environment":"development","level":"info","message":"🚀 Server running on http://0.0.0.0:3000","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:54"}
+{"environment":"development","level":"info","message":"📊 Environment: development","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:54"}
+{"environment":"development","level":"info","message":"🔌 WebSocket server initialized","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:54"}
+{"environment":"development","level":"info","message":"📝 API Documentation: http://0.0.0.0:3000/api/v1","service":"aluma-banking-api","timestamp":"2025-11-14 19:17:54"}

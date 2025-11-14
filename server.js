@@ -28,9 +28,13 @@ const { initializeWebSocket } = require('./websocket/handler');
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
+const corsOrigins = process.env.CORS_ORIGIN 
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : '*';
+
 const io = socketIo(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || '*',
+    origin: corsOrigins,
     methods: ['GET', 'POST']
   }
 });
@@ -57,8 +61,12 @@ app.use(helmet({
 }));
 
 // CORS configuration
+const corsOrigins = process.env.CORS_ORIGIN 
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : '*';
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: corsOrigins,
   credentials: true,
   optionsSuccessStatus: 200
 }));

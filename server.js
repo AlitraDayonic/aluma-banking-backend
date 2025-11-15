@@ -60,10 +60,6 @@ app.use(helmet({
   }
 }));
 
-// CORS configuration
-const corsOrigins = process.env.CORS_ORIGIN 
-  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
-  : '*';
 
 app.use(cors({
   origin: corsOrigins,

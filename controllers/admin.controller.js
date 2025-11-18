@@ -637,3 +637,376 @@ exports.getPlatformAnalytics = async (req, res, next) => {
     next(error);
   }
 };
+
+
+// Credit user account (add money) exports.creditAccount = async (req, res, next) => { const client = await pool.connect();
+try {
+const { account_id } = req.params;
+const { amount, reason, reference } = req.body;
+const adminId = req.user.id;
+// Validation
+if (!amount || amount <= 0) {
+  return res.status(400).json({
+    success: false,
+    message: 'Invalid amount'
+  });
+}
+
+if (!reason) {
+  return res.status(400).json({
+    success: false,
+    message: 'Reason is required'
+  });
+}
+
+await client.query('BEGIN');
+
+// Check if account exists
+const accountCheck = await client.query(
+  'SELECT * FROM accounts WHERE id = $1',
+  [account_id]
+);
+
+if (accountCheck.rows.length === 0) {
+  await client.query('ROLLBACK');
+  return res.status(404).json({
+    success: false,
+    message: 'Account not found'
+  });
+}
+
+const account = accountCheck.rows[0];
+
+// Update account balance
+const updatedAccount = await client.query(
+  `UPDATE accounts 
+   SET cash_balance = cash_balance + $1,
+       updated_at = CURRENT_TIMESTAMP
+   WHERE id = $2
+   RETURNING *`,
+  [amount, account_id]
+);
+
+// Create transaction record
+const transaction = await client.query(
+  `INSERT INTO transactions (
+    account_id, type, amount, status, description, reference, metadata, created_by
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+  RETURNING *`,
+  [
+    account_id,
+    'credit',
+    amount,
+    'completed',
+    `Admin Credit: ${reason}`,
+    reference || `ADMIN-CR-${Date.now()}`,
+    JSON.stringify({ 
+      admin_action: true, 
+      admin_id: adminId,
+      reason: reason 
+    }),
+    adminId
+  ]
+);
+
+// Create account activity log
+await client.query(
+  `INSERT INTO account_activity (
+    account_id, activity_type, amount, description, created_by
+  ) VALUES ($1, $2, $3, $4, $5)`,
+  [account_id, 'admin_credit', amount, reason, adminId]
+);
+
+// Create audit log
+await client.query(
+  `INSERT INTO audit_logs (user_id, action, entity_type, entity_id, changes)
+   VALUES ($1, $2, $3, $4, $5)`,
+  [
+    adminId,
+    'ADMIN_CREDIT_ACCOUNT',
+    'account',
+    account_id,
+    JSON.stringify({
+      account_id,
+      amount,
+      reason,
+      previous_balance: parseFloat(account.cash_balance),
+      new_balance: parseFloat(account.cash_balance) + parseFloat(amount)
+    })
+  ]
+);
+
+await client.query('COMMIT');
+
+logger.info('Account credited by admin', { 
+  accountId: account_id, 
+  amount, 
+  adminId 
+});
+
+res.json({
+  success: true,
+  message: 'Account credited successfully',
+  data: {
+    account: updatedAccount.rows[0],
+    transaction: transaction.rows[0]
+  }
+});
+} catch (error) {
+await client.query('ROLLBACK');
+logger.error('Error crediting account:', error);
+next(error);
+} finally {
+client.release();
+}
+};
+// Debit user account (remove money)
+exports.debitAccount = async (req, res, next) => {
+const client = await pool.connect();
+try {
+const { account_id } = req.params;
+const { amount, reason, reference, allow_negative } = req.body;
+const adminId = req.user.id;
+// Validation
+if (!amount || amount <= 0) {
+  return res.status(400).json({
+    success: false,
+    message: 'Invalid amount'
+  });
+}
+
+if (!reason) {
+  return res.status(400).json({
+    success: false,
+    message: 'Reason is required'
+  });
+}
+
+await client.query('BEGIN');
+
+// Check if account exists
+const accountCheck = await client.query(
+  'SELECT * FROM accounts WHERE id = $1',
+  [account_id]
+);
+
+if (accountCheck.rows.length === 0) {
+  await client.query('ROLLBACK');
+  return res.status(404).json({
+    success: false,
+    message: 'Account not found'
+  });
+}
+
+const account = accountCheck.rows[0];
+const currentBalance = parseFloat(account.cash_balance);
+
+// Check if sufficient balance (unless allow_negative is true)
+if (!allow_negative && currentBalance < amount) {
+  await client.query('ROLLBACK');
+  return res.status(400).json({
+    success: false,
+    message: 'Insufficient balance',
+    data: {
+      current_balance: currentBalance,
+      requested_amount: amount
+    }
+  });
+}
+
+// Update account balance
+const updatedAccount = await client.query(
+  `UPDATE accounts 
+   SET cash_balance = cash_balance - $1,
+       updated_at = CURRENT_TIMESTAMP
+   WHERE id = $2
+   RETURNING *`,
+  [amount, account_id]
+);
+
+// Create transaction record
+const transaction = await client.query(
+  `INSERT INTO transactions (
+    account_id, type, amount, status, description, reference, metadata, created_by
+  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+  RETURNING *`,
+  [
+    account_id,
+    'debit',
+    amount,
+    'completed',
+    `Admin Debit: ${reason}`,
+    reference || `ADMIN-DB-${Date.now()}`,
+    JSON.stringify({ 
+      admin_action: true, 
+      admin_id: adminId,
+      reason: reason 
+    }),
+    adminId
+  ]
+);
+
+// Create account activity log
+await client.query(
+  `INSERT INTO account_activity (
+    account_id, activity_type, amount, description, created_by
+  ) VALUES ($1, $2, $3, $4, $5)`,
+  [account_id, 'admin_debit', amount, reason, adminId]
+);
+
+// Create audit log
+await client.query(
+  `INSERT INTO audit_logs (user_id, action, entity_type, entity_id, changes)
+   VALUES ($1, $2, $3, $4, $5)`,
+  [
+    adminId,
+    'ADMIN_DEBIT_ACCOUNT',
+    'account',
+    account_id,
+    JSON.stringify({
+      account_id,
+      amount,
+      reason,
+      previous_balance: currentBalance,
+      new_balance: currentBalance - parseFloat(amount)
+    })
+  ]
+);
+
+await client.query('COMMIT');
+
+logger.info('Account debited by admin', { 
+  accountId: account_id, 
+  amount, 
+  adminId 
+});
+
+res.json({
+  success: true,
+  message: 'Account debited successfully',
+  data: {
+    account: updatedAccount.rows[0],
+    transaction: transaction.rows[0]
+  }
+});
+} catch (error) {
+await client.query('ROLLBACK');
+logger.error('Error debiting account:', error);
+next(error);
+} finally {
+client.release();
+}
+};
+// Get account balance adjustments history
+exports.getBalanceAdjustments = async (req, res, next) => {
+try {
+const { account_id } = req.params;
+const { limit = 50, offset = 0 } = req.query;
+const result = await pool.query(
+  `SELECT t.*, u.email as admin_email, u.first_name as admin_first_name, u.last_name as admin_last_name
+   FROM transactions t
+   LEFT JOIN users u ON t.created_by = u.id
+   WHERE t.account_id = $1 
+     AND t.type IN ('credit', 'debit')
+     AND t.metadata->>'admin_action' = 'true'
+   ORDER BY t.created_at DESC
+   LIMIT $2 OFFSET $3`,
+  [account_id, parseInt(limit), parseInt(offset)]
+);
+
+const countResult = await pool.query(
+  `SELECT COUNT(*) FROM transactions 
+   WHERE account_id = $1 
+     AND type IN ('credit', 'debit')
+     AND metadata->>'admin_action' = 'true'`,
+  [account_id]
+);
+
+res.json({
+  success: true,
+  data: result.rows,
+  pagination: {
+    total: parseInt(countResult.rows[0].count),
+    limit: parseInt(limit),
+    offset: parseInt(offset)
+  }
+});
+} catch (error) {
+logger.error('Error fetching balance adjustments:', error);
+next(error);
+}
+};
+// Get all accounts for admin
+exports.getAllAccounts = async (req, res, next) => {
+try {
+const {
+status,
+search,
+min_balance,
+max_balance,
+limit = 50,
+offset = 0
+} = req.query;
+let query = `
+  SELECT a.*, u.email, u.first_name, u.last_name, u.status as user_status
+  FROM accounts a
+  INNER JOIN users u ON a.user_id = u.id
+  WHERE 1=1
+`;
+const params = [];
+
+if (status) {
+  params.push(status);
+  query += ` AND a.status = $${params.length}`;
+}
+
+if (search) {
+  params.push(`%${search}%`);
+  query += ` AND (u.email ILIKE $${params.length} OR u.first_name ILIKE $${params.length} OR u.last_name ILIKE $${params.length} OR a.account_number ILIKE $${params.length})`;
+}
+
+if (min_balance) {
+  params.push(min_balance);
+  query += ` AND a.cash_balance >= $${params.length}`;
+}
+
+if (max_balance) {
+  params.push(max_balance);
+  query += ` AND a.cash_balance <= $${params.length}`;
+}
+
+query += ` ORDER BY a.created_at DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
+params.push(parseInt(limit), parseInt(offset));
+
+const result = await pool.query(query, params);
+
+// Get total count
+let countQuery = 'SELECT COUNT(*) FROM accounts a INNER JOIN users u ON a.user_id = u.id WHERE 1=1';
+const countParams = [];
+
+if (status) {
+  countParams.push(status);
+  countQuery += ` AND a.status = $${countParams.length}`;
+}
+
+if (search) {
+  countParams.push(`%${search}%`);
+  countQuery += ` AND (u.email ILIKE $${countParams.length} OR u.first_name ILIKE $${countParams.length} OR u.last_name ILIKE $${countParams.length} OR a.account_number ILIKE $${countParams.length})`;
+}
+
+const countResult = await pool.query(countQuery, countParams);
+
+res.json({
+  success: true,
+  data: result.rows,
+  pagination: {
+    total: parseInt(countResult.rows[0].count),
+    limit: parseInt(limit),
+    offset: parseInt(offset)
+  }
+});
+} catch (error) {
+logger.error('Error fetching accounts:', error);
+next(error);
+}
+};

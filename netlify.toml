@@ -1,0 +1,15 @@
+# No build command needed for static HTML
+  command = ""
+  
+  # The folder to publish (where your index.html is)
+  publish = "."
+  
+[build.environment]
+  # Node version (optional, but good to specify)
+  NODE_VERSION = "18"
+
+[[redirects]]
+  # Redirect all 404s to index.html for SPA behavior (optional)
+  from = "/*"
+  to = "/index.html"
+  status = 200

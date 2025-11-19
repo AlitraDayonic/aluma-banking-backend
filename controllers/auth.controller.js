@@ -192,8 +192,9 @@ const login = asyncHandler(async (req, res) => {
         username: user.username,
         firstName: user.first_name,
         lastName: user.last_name,
-        emailVerified: user.email_verified,
-        status: user.status
+        emailVerified: user.email_verified,  
+        status: user.status,
+        role: user.role
       },
       tokens: {
         accessToken,

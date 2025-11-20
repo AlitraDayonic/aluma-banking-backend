@@ -41,7 +41,7 @@ const authenticate = async (req, res, next) => {
         first_name, 
         last_name, 
         status, 
-        email_verified
+        email_verified,
         role
       FROM users 
       WHERE id = $1`,

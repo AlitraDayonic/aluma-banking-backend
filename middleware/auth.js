@@ -41,7 +41,8 @@ const authenticate = async (req, res, next) => {
         first_name, 
         last_name, 
         status, 
-        email_verified 
+        email_verified
+        role
       FROM users 
       WHERE id = $1`,
       [decoded.userId]
@@ -71,7 +72,8 @@ const authenticate = async (req, res, next) => {
       username: user.username,
       firstName: user.first_name,
       lastName: user.last_name,
-      emailVerified: user.email_verified
+      emailVerified: user.email_verified,
+      role: user.role
     };
 
     // Set user context for database row-level security

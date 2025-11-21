@@ -54,7 +54,7 @@ class User {
     const result = await query(
       `SELECT 
         id, email, username, password_hash, first_name, last_name, 
-        status, email_verified, created_at
+        status, email_verified, created_at, role
       FROM users
       WHERE email = $1 AND deleted_at IS NULL`,
       [email]

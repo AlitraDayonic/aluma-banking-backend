@@ -27,6 +27,7 @@ const { initializeWebSocket } = require('./websocket/handler');
 
 // Initialize Express app
 const app = express();
+app.set('trust proxy', 1);
 const server = http.createServer(app);
 const corsOrigins = process.env.CORS_ORIGIN 
   ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())

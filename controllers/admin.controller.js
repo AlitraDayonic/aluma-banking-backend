@@ -3,13 +3,50 @@ const logger = require('../utils/logger');
 
 exports.getDashboardStats = async (req, res, next) => {
   try {
-    const usersStats = await pool.query(`SELECT COUNT(*) as total_users, COUNT(*) FILTER (WHERE status = 'active') as active_users, COUNT(*) FILTER (WHERE status = 'pending') as pending_users, COUNT(*) FILTER (WHERE status = 'suspended') as suspended_users, COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days') as new_users_30d FROM users WHERE deleted_at IS NULL`);
-    const accountStats = await pool.query(`SELECT COUNT(*) as total_accounts, SUM(cash_balance) as total_cash, SUM(market_value) as total_market_value, COUNT(*) FILTER (WHERE status = 'active') as active_accounts FROM accounts`);
-    const tradingStats = await pool.query(`SELECT COUNT(*) as total_orders, COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '1 day') as orders_24h, SUM(filled_value) FILTER (WHERE status = 'filled') as total_volume, SUM(commission) as total_commissions FROM orders WHERE created_at >= NOW() - INTERVAL '30 days'`);
-    const kycStats = await pool.query(`SELECT COUNT(*) FILTER (WHERE status = 'pending') as pending_kyc, COUNT(*) FILTER (WHERE status = 'under_review') as under_review, COUNT(*) FILTER (WHERE status = 'approved') as approved_kyc, COUNT(*) FILTER (WHERE status = 'rejected') as rejected_kyc FROM user_kyc`);
-    const supportStats = await pool.query(`SELECT COUNT(*) FILTER (WHERE status = 'open') as open_tickets, COUNT(*) FILTER (WHERE status = 'in_progress') as in_progress_tickets, COUNT(*) FILTER (WHERE priority = 'urgent') as urgent_tickets FROM support_tickets`);
-    res.json({ success: true, data: { users: usersStats.rows[0], accounts: accountStats.rows[0], trading: tradingStats.rows[0], kyc: kycStats.rows[0], support: supportStats.rows[0], timestamp: new Date().toISOString() } });
-  } catch (error) { logger.error('Error fetching dashboard stats:', error); next(error); }
+    const usersStats = await pool.query(`
+      SELECT 
+        COUNT(*) as total_users,
+        COUNT(*) FILTER (WHERE status = 'active') as active_users,
+        COUNT(*) FILTER (WHERE status = 'pending') as pending_users,
+        COUNT(*) FILTER (WHERE status = 'suspended') as suspended_users,
+        COUNT(*) FILTER (WHERE created_at >= NOW() - INTERVAL '30 days') as new_users_30d
+      FROM users
+      WHERE deleted_at IS NULL
+    `);
+
+    const accountStats = await pool.query(`
+      SELECT 
+        COUNT(*) as total_accounts,
+        COALESCE(SUM(cash_balance), 0) as total_cash,
+        COALESCE(SUM(portfolio_value), 0) as total_portfolio_value,
+        COUNT(*) FILTER (WHERE status = 'active') as active_accounts
+      FROM accounts
+    `);
+
+    const kycStats = await pool.query(`
+      SELECT 
+        COUNT(*) FILTER (WHERE status = 'pending') as pending_kyc,
+        COUNT(*) FILTER (WHERE status = 'under_review') as under_review,
+        COUNT(*) FILTER (WHERE status = 'approved') as approved_kyc,
+        COUNT(*) FILTER (WHERE status = 'rejected') as rejected_kyc
+      FROM user_kyc
+    `);
+
+    res.json({
+      success: true,
+      data: {
+        users: usersStats.rows[0],
+        accounts: accountStats.rows[0],
+        kyc: kycStats.rows[0],
+        trading: { total_orders: 0, orders_24h: 0, total_volume: 0, total_commissions: 0 },
+        support: { open_tickets: 0, in_progress_tickets: 0, urgent_tickets: 0 },
+        timestamp: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching dashboard stats:', error);
+    next(error);
+  }
 };
 
 exports.getAllUsers = async (req, res, next) => {

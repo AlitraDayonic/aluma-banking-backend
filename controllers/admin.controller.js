@@ -116,21 +116,46 @@ exports.updateUserStatus = async (req, res, next) => {
 };
 
 exports.reviewKYC = async (req, res, next) => {
-  const client = await pool.connect();
   try {
     const { id } = req.params;
     const { status, rejection_reason, verification_level } = req.body;
     const adminId = req.user.id;
-    await client.query('BEGIN');
-    const validStatuses = ['approved', 'rejected', 'under_review'];
-    if (!validStatuses.includes(status)) { await client.query('ROLLBACK'); return res.status(400).json({ success: false, message: 'Invalid KYC status' }); }
-    if (status === 'rejected' && !rejection_reason) { await client.query('ROLLBACK'); return res.status(400).json({ success: false, message: 'Rejection reason required' }); }
-    const result = await client.query(`UPDATE user_kyc SET status = $1, rejection_reason = $2, verification_level = $3, reviewed_at = CURRENT_TIMESTAMP, reviewed_by = $4 WHERE user_id = $5 RETURNING *`, [status, rejection_reason, verification_level, adminId, id]);
-    if (result.rows.length === 0) { await client.query('ROLLBACK'); return res.status(404).json({ success: false, message: 'KYC record not found' }); }
-    await client.query(`INSERT INTO audit_logs (user_id, action, entity_type, entity_id, changes) VALUES ($1, $2, $3, $4, $5)`, [adminId, 'KYC_REVIEWED', 'user_kyc', id, JSON.stringify({ status, rejection_reason, reviewed_by: adminId })]);
-    await client.query('COMMIT');
-    res.json({ success: true, message: 'KYC review completed', data: result.rows[0] });
-  } catch (error) { await client.query('ROLLBACK'); logger.error('Error reviewing KYC:', error); next(error); } finally { client.release(); }
+
+    const validStatuses = ['approved', 'rejected', 'under_review', 'pending'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({ success: false, message: 'Invalid KYC status' });
+    }
+
+    if (status === 'rejected' && !rejection_reason) {
+      return res.status(400).json({ success: false, message: 'Rejection reason required' });
+    }
+
+    const result = await pool.query(
+      `UPDATE user_kyc 
+       SET status = $1,
+           rejection_reason = $2,
+           verification_level = $3,
+           reviewed_at = CURRENT_TIMESTAMP,
+           reviewed_by = $4,
+           updated_at = CURRENT_TIMESTAMP
+       WHERE user_id = $5
+       RETURNING *`,
+      [status, rejection_reason || null, verification_level || 0, adminId, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'KYC record not found' });
+    }
+
+    res.json({
+      success: true,
+      message: 'KYC review completed',
+      data: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Error reviewing KYC:', error);
+    next(error);
+  }
 };
 
 exports.getPendingKYC = async (req, res, next) => {

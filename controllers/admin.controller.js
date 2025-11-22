@@ -70,14 +70,37 @@ exports.getAllUsers = async (req, res, next) => {
 exports.getUserDetails = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const userResult = await pool.query(`SELECT u.*, up.*, uk.status as kyc_status, uk.verification_level, uk.rejection_reason FROM users u LEFT JOIN user_profiles up ON u.id = up.user_id LEFT JOIN user_kyc uk ON u.id = uk.user_id WHERE u.id = $1 AND u.deleted_at IS NULL`, [id]);
-    if (userResult.rows.length === 0) { return res.status(404).json({ success: false, message: 'User not found' }); }
-    const accounts = await pool.query('SELECT * FROM accounts WHERE user_id = $1 ORDER BY created_at DESC', [id]);
-    const activity = await pool.query(`SELECT type, action, created_at, ip_address FROM audit_logs WHERE user_id = $1 ORDER BY created_at DESC LIMIT 10`, [id]);
-    res.json({ success: true, data: { user: userResult.rows[0], accounts: accounts.rows, recent_activity: activity.rows } });
-  } catch (error) { logger.error('Error fetching user details:', error); next(error); }
-};
+    
+    const userResult = await pool.query(
+      `SELECT u.*, uk.status as kyc_status, uk.verification_level, uk.rejection_reason
+       FROM users u
+       LEFT JOIN user_kyc uk ON u.id = uk.user_id
+       WHERE u.id = $1 AND u.deleted_at IS NULL`,
+      [id]
+    );
 
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const accounts = await pool.query(
+      'SELECT * FROM accounts WHERE user_id = $1 ORDER BY created_at DESC',
+      [id]
+    );
+
+    res.json({
+      success: true,
+      data: {
+        user: userResult.rows[0],
+        accounts: accounts.rows,
+        recent_activity: []
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    next(error);
+  }
+};
 exports.updateUserStatus = async (req, res, next) => {
   try {
     const { id } = req.params;

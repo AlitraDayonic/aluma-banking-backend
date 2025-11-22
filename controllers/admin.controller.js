@@ -130,6 +130,7 @@ exports.reviewKYC = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Rejection reason required' });
     }
 
+    // Update KYC status
     const result = await pool.query(
       `UPDATE user_kyc 
        SET status = $1,
@@ -145,6 +146,22 @@ exports.reviewKYC = async (req, res, next) => {
 
     if (result.rows.length === 0) {
       return res.status(404).json({ success: false, message: 'KYC record not found' });
+    }
+
+    // If KYC approved, set user status to active
+    if (status === 'approved') {
+      await pool.query(
+        `UPDATE users SET status = 'active', updated_at = CURRENT_TIMESTAMP WHERE id = $1`,
+        [id]
+      );
+    }
+
+    // If KYC rejected, set user status to suspended
+    if (status === 'rejected') {
+      await pool.query(
+        `UPDATE users SET status = 'suspended', updated_at = CURRENT_TIMESTAMP WHERE id = $1`,
+        [id]
+      );
     }
 
     res.json({

@@ -64,6 +64,19 @@ const register = asyncHandler(async (req, res) => {
       [user.id]
     );
 
+    // Create default bank account
+    const accountNumber = 'ACC' + Math.floor(Math.random() * 9000000 + 1000000);
+    await client.query(
+      `INSERT INTO accounts (
+        id, user_id, account_number, account_type, status, 
+        cash_balance, buying_power, portfolio_value, created_at, updated_at
+      ) VALUES (
+        gen_random_uuid(), $1, $2, 'individual', 'active',
+        0, 0, 0, NOW(), NOW()
+      )`,
+      [user.id, accountNumber]
+    );
+
     return user;
   });
 

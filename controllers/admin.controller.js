@@ -257,45 +257,98 @@ exports.getPlatformAnalytics = async (req, res, next) => {
 };
 
 exports.creditAccount = async (req, res, next) => {
-  const client = await pool.connect();
+exports.creditAccount = async (req, res, next) => {
   try {
     const { account_id } = req.params;
-    const { amount, reason, reference } = req.body;
-    const adminId = req.user.id;
-    if (!amount || amount <= 0) { return res.status(400).json({ success: false, message: 'Invalid amount' }); }
-    if (!reason) { return res.status(400).json({ success: false, message: 'Reason is required' }); }
-    await client.query('BEGIN');
-    const accountCheck = await client.query('SELECT * FROM accounts WHERE id = $1', [account_id]);
-    if (accountCheck.rows.length === 0) { await client.query('ROLLBACK'); return res.status(404).json({ success: false, message: 'Account not found' }); }
+    const { amount, reason } = req.body;
+
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ success: false, message: 'Invalid amount' });
+    }
+
+    // Check if account exists
+    const accountCheck = await pool.query('SELECT * FROM accounts WHERE id = $1', [account_id]);
+    if (accountCheck.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Account not found' });
+    }
+
     const account = accountCheck.rows[0];
-    const updatedAccount = await client.query(`UPDATE accounts SET cash_balance = cash_balance + $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *`, [amount, account_id]);
-    const transaction = await client.query(`INSERT INTO transactions (account_id, type, amount, status, description, reference, metadata, created_by) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`, [account_id, 'credit', amount, 'completed', `Admin Credit: ${reason}`, reference || `ADMIN-CR-${Date.now()}`, JSON.stringify({ admin_action: true, admin_id: adminId, reason: reason }), adminId]);
-    await client.query(`INSERT INTO audit_logs (user_id, action, entity_type, entity_id, changes) VALUES ($1, $2, $3, $4, $5)`, [adminId, 'ADMIN_CREDIT_ACCOUNT', 'account', account_id, JSON.stringify({ account_id, amount, reason, previous_balance: parseFloat(account.cash_balance), new_balance: parseFloat(account.cash_balance) + parseFloat(amount) })]);
-    await client.query('COMMIT');
-    res.json({ success: true, message: 'Account credited successfully', data: { account: updatedAccount.rows[0], transaction: transaction.rows[0] } });
-  } catch (error) { await client.query('ROLLBACK'); logger.error('Error crediting account:', error); next(error); } finally { client.release(); }
+
+    // Update account balance
+    const updatedAccount = await pool.query(
+      `UPDATE accounts 
+       SET cash_balance = cash_balance + $1, buying_power = buying_power + $1, updated_at = NOW()
+       WHERE id = $2
+       RETURNING *`,
+      [amount, account_id]
+    );
+
+    // Create transaction record
+    await pool.query(
+      `INSERT INTO transactions (id, account_id, transaction_type, amount, status, description, reference_id, currency, created_at, updated_at)
+       VALUES (gen_random_uuid(), $1, 'deposit', $2, 'completed', $3, $4, 'USD', NOW(), NOW())`,
+      [account_id, amount, reason || 'Admin credit', 'ADMIN-CR-' + Date.now()]
+    );
+
+    res.json({
+      success: true,
+      message: 'Account credited successfully',
+      data: { account: updatedAccount.rows[0] }
+    });
+  } catch (error) {
+    console.error('Error crediting account:', error);
+    next(error);
+  }
 };
 
 exports.debitAccount = async (req, res, next) => {
-  const client = await pool.connect();
+exports.debitAccount = async (req, res, next) => {
   try {
     const { account_id } = req.params;
-    const { amount, reason, reference, allow_negative } = req.body;
-    const adminId = req.user.id;
-    if (!amount || amount <= 0) { return res.status(400).json({ success: false, message: 'Invalid amount' }); }
-    if (!reason) { return res.status(400).json({ success: false, message: 'Reason is required' }); }
-    await client.query('BEGIN');
-    const accountCheck = await client.query('SELECT * FROM accounts WHERE id = $1', [account_id]);
-    if (accountCheck.rows.length === 0) { await client.query('ROLLBACK'); return res.status(404).json({ success: false, message: 'Account not found' }); }
+    const { amount, reason } = req.body;
+
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ success: false, message: 'Invalid amount' });
+    }
+
+    // Check if account exists
+    const accountCheck = await pool.query('SELECT * FROM accounts WHERE id = $1', [account_id]);
+    if (accountCheck.rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Account not found' });
+    }
+
     const account = accountCheck.rows[0];
     const currentBalance = parseFloat(account.cash_balance);
-    if (!allow_negative && currentBalance < amount) { await client.query('ROLLBACK'); return res.status(400).json({ success: false, message: 'Insufficient balance', data: { current_balance: currentBalance, requested_amount: amount } }); }
-    const updatedAccount = await client.query(`UPDATE accounts SET cash_balance = cash_balance - $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *`, [amount, account_id]);
-    const transaction = await client.query(`INSERT INTO transactions (account_id, type, amount, status, description, reference, metadata, created_by) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`, [account_id, 'debit', amount, 'completed', `Admin Debit: ${reason}`, reference || `ADMIN-DB-${Date.now()}`, JSON.stringify({ admin_action: true, admin_id: adminId, reason: reason }), adminId]);
-    await client.query(`INSERT INTO audit_logs (user_id, action, entity_type, entity_id, changes) VALUES ($1, $2, $3, $4, $5)`, [adminId, 'ADMIN_DEBIT_ACCOUNT', 'account', account_id, JSON.stringify({ account_id, amount, reason, previous_balance: currentBalance, new_balance: currentBalance - parseFloat(amount) })]);
-    await client.query('COMMIT');
-    res.json({ success: true, message: 'Account debited successfully', data: { account: updatedAccount.rows[0], transaction: transaction.rows[0] } });
-  } catch (error) { await client.query('ROLLBACK'); logger.error('Error debiting account:', error); next(error); } finally { client.release(); }
+
+    if (currentBalance < amount) {
+      return res.status(400).json({ success: false, message: 'Insufficient balance' });
+    }
+
+    // Update account balance
+    const updatedAccount = await pool.query(
+      `UPDATE accounts 
+       SET cash_balance = cash_balance - $1, buying_power = buying_power - $1, updated_at = NOW()
+       WHERE id = $2
+       RETURNING *`,
+      [amount, account_id]
+    );
+
+    // Create transaction record
+    await pool.query(
+      `INSERT INTO transactions (id, account_id, transaction_type, amount, status, description, reference_id, currency, created_at, updated_at)
+       VALUES (gen_random_uuid(), $1, 'withdrawal', $2, 'completed', $3, $4, 'USD', NOW(), NOW())`,
+      [account_id, amount, reason || 'Admin debit', 'ADMIN-DB-' + Date.now()]
+    );
+
+    res.json({
+      success: true,
+      message: 'Account debited successfully',
+      data: { account: updatedAccount.rows[0] }
+    });
+  } catch (error) {
+    console.error('Error debiting account:', error);
+    next(error);
+  }
 };
 
 exports.getBalanceAdjustments = async (req, res, next) => {

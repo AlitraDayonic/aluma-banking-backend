@@ -174,9 +174,9 @@ createSupportTicket: Joi.object({
   subject: Joi.string().min(5).max(255).required(),
   category: Joi.string().valid('account', 'trading', 'technical', 'billing', 'other').required(),
   message: Joi.string().min(10).max(5000).required(),
-  priority: Joi.string().valid('low', 'normal', 'high', 'urgent').optional(),
-  email: Joi.string().email().optional(), // Required for anonymous
-  name: Joi.string().min(2).max(100).optional() // Required for anonymous
+  priority: Joi.string().valid('low', 'normal', 'high', 'urgent').optional().default('normal'),
+  email: Joi.string().email().optional().allow(''),
+  name: Joi.string().min(2).max(100).optional().allow('')
 }),
 
 addTicketMessage: Joi.object({

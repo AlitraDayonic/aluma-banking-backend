@@ -171,6 +171,150 @@ const sendPasswordResetEmail = async (email, token) => {
   });
 };
 
+
+/**
+ * Send support ticket confirmation email
+ */
+const sendSupportTicketConfirmation = async (email, ticketData) => {
+  const { ticketNumber, subject, name } = ticketData;
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #1a73e8; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; background: #f9f9f9; }
+        .ticket-box { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #1a73e8; }
+        .ticket-number { font-size: 24px; font-weight: bold; color: #1a73e8; }
+        .button { 
+          display: inline-block; 
+          padding: 12px 30px; 
+          background: #1a73e8; 
+          color: white; 
+          text-decoration: none; 
+          border-radius: 5px;
+          margin: 20px 0;
+        }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Support Ticket Created</h1>
+        </div>
+        <div class="content">
+          <h2>Hi ${name},</h2>
+          <p>Thank you for contacting Aluma Banking support. We've received your request and our team will review it shortly.</p>
+          
+          <div class="ticket-box">
+            <p>Your Ticket Number:</p>
+            <p class="ticket-number">${ticketNumber}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+          </div>
+          
+          <p>Please save this ticket number for your reference. You can use it to track the status of your request or add additional information.</p>
+          
+          <center>
+            <a href="${FRONTEND_URL}/support/tickets/${ticketNumber}" class="button">View Ticket</a>
+          </center>
+          
+          <p><strong>What happens next?</strong></p>
+          <ul>
+            <li>Our support team will review your ticket within 24 hours</li>
+            <li>You'll receive email updates when we respond</li>
+            <li>You can reply to add more information anytime</li>
+          </ul>
+          
+          <p>We typically respond to tickets within 1-2 business days, depending on complexity and priority.</p>
+        </div>
+        <div class="footer">
+          <p>&copy; ${new Date().getFullYear()} Aluma Banking. All rights reserved.</p>
+          <p>This is an automated email. Please do not reply.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: email,
+    subject: `Support Ticket Created: ${ticketNumber}`,
+    html
+  });
+};
+
+/**
+ * Send support reply notification
+ */
+const sendSupportReplyNotification = async (email, ticketData) => {
+  const { ticketNumber, subject, message, name } = ticketData;
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #10b981; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; background: #f9f9f9; }
+        .message-box { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+        .button { 
+          display: inline-block; 
+          padding: 12px 30px; 
+          background: #1a73e8; 
+          color: white; 
+          text-decoration: none; 
+          border-radius: 5px;
+          margin: 20px 0;
+        }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>💬 New Response to Your Ticket</h1>
+        </div>
+        <div class="content">
+          <h2>Hi ${name},</h2>
+          <p>Our support team has responded to your ticket <strong>${ticketNumber}</strong>.</p>
+          
+          <p><strong>Subject:</strong> ${subject}</p>
+          
+          <div class="message-box">
+            <p><strong>Support Team:</strong></p>
+            <p>${message}</p>
+          </div>
+          
+          <center>
+            <a href="${FRONTEND_URL}/support/tickets/${ticketNumber}" class="button">View & Reply</a>
+          </center>
+          
+          <p>If you have any additional questions or information to add, please reply to this ticket.</p>
+        </div>
+        <div class="footer">
+          <p>&copy; ${new Date().getFullYear()} Aluma Banking. All rights reserved.</p>
+          <p>Ticket #${ticketNumber}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: email,
+    subject: `Response to Ticket ${ticketNumber}`,
+    html
+  });
+};
+
+
+
 /**
  * Send trade confirmation email
  */
@@ -445,6 +589,7 @@ const stripHtml = (html) => {
   return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
+// Add these to your module.exports
 module.exports = {
   sendEmail,
   sendVerificationEmail,
@@ -452,5 +597,7 @@ module.exports = {
   sendTradeConfirmation,
   sendStatement,
   sendPriceAlertEmail,
-  sendWelcomeEmail
+  sendWelcomeEmail,
+  sendSupportTicketConfirmation,
+  sendSupportReplyNotification
 };

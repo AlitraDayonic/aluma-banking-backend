@@ -589,6 +589,84 @@ const stripHtml = (html) => {
   return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
+/**
+ * Send account approval email
+ */
+const sendAccountApprovalEmail = async (email, userData) => {
+  const { firstName } = userData;
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #10b981; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; background: #f9f9f9; }
+        .success-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 20px; margin: 20px 0; }
+        .button { 
+          display: inline-block; 
+          padding: 12px 30px; 
+          background: #1a73e8; 
+          color: white; 
+          text-decoration: none; 
+          border-radius: 5px;
+          margin: 20px 0;
+        }
+        .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>✅ Account Approved!</h1>
+        </div>
+        <div class="content">
+          <h2>Hi ${firstName},</h2>
+          
+          <div class="success-box">
+            <h3>🎉 Great news!</h3>
+            <p>Your Aluma Banking account has been approved and is now active.</p>
+          </div>
+          
+          <p>You can now access all features of your account:</p>
+          <ul>
+            <li>✅ Fund your account</li>
+            <li>✅ Start trading stocks</li>
+            <li>✅ Set up price alerts</li>
+            <li>✅ View real-time market data</li>
+            <li>✅ Track your portfolio performance</li>
+          </ul>
+          
+          <center>
+            <a href="${FRONTEND_URL}/dashboard" class="button">Go to Dashboard</a>
+          </center>
+          
+          <p><strong>Next Steps:</strong></p>
+          <ol>
+            <li>Complete your profile setup</li>
+            <li>Add funds to your account</li>
+            <li>Explore our platform and start investing</li>
+          </ol>
+          
+          <p>If you have any questions, our support team is here to help!</p>
+        </div>
+        <div class="footer">
+          <p>&copy; ${new Date().getFullYear()} Aluma Banking. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: email,
+    subject: '🎉 Your Aluma Banking Account is Approved!',
+    html
+  });
+};
+
 // Add these to your module.exports
 module.exports = {
   sendEmail,
@@ -599,5 +677,6 @@ module.exports = {
   sendPriceAlertEmail,
   sendWelcomeEmail,
   sendSupportTicketConfirmation,
-  sendSupportReplyNotification
+  sendSupportReplyNotification,
+  sendAccountApprovalEmail
 };

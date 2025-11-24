@@ -169,13 +169,23 @@ const schemas = {
     notifySms: Joi.boolean().default(false)
   }),
 
-  // Support ticket schema
-  createTicket: Joi.object({
-    subject: Joi.string().min(5).max(200).required(),
-    category: Joi.string().valid('technical', 'account', 'trading', 'billing', 'other').required(),
-    priority: Joi.string().valid('low', 'medium', 'high').default('medium'),
-    message: Joi.string().min(10).max(2000).required()
-  }),
+// Add these to your schemas object
+createSupportTicket: Joi.object({
+  subject: Joi.string().min(5).max(255).required(),
+  category: Joi.string().valid('account', 'trading', 'technical', 'billing', 'other').required(),
+  message: Joi.string().min(10).max(5000).required(),
+  priority: Joi.string().valid('low', 'normal', 'high', 'urgent').optional(),
+  email: Joi.string().email().optional(), // Required for anonymous
+  name: Joi.string().min(2).max(100).optional() // Required for anonymous
+}),
+
+addTicketMessage: Joi.object({
+  message: Joi.string().min(1).max(5000).required()
+}),
+
+updateTicketStatus: Joi.object({
+  status: Joi.string().valid('open', 'in_progress', 'waiting', 'resolved', 'closed').required()
+})
 
   // 2FA schemas
   verify2FA: Joi.object({

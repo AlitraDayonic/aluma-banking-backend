@@ -169,7 +169,6 @@ const schemas = {
     notifySms: Joi.boolean().default(false)
   }),
 
-// Add these to your schemas object
 createSupportTicket: Joi.object({
   subject: Joi.string().min(5).max(255).required(),
   category: Joi.string().valid('account', 'trading', 'technical', 'billing', 'other').required(),

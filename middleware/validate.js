@@ -185,7 +185,7 @@ addTicketMessage: Joi.object({
 
 updateTicketStatus: Joi.object({
   status: Joi.string().valid('open', 'in_progress', 'waiting', 'resolved', 'closed').required()
-})
+}),
 
   // 2FA schemas
   verify2FA: Joi.object({

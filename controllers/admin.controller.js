@@ -1,5 +1,6 @@
 const { pool } = require('../config/database');
 const logger = require('../utils/logger');
+const emailService = require('../services/email.service'); // ADD THIS LINE
 
 exports.getDashboardStats = async (req, res, next) => {
   try {
@@ -150,9 +151,32 @@ exports.reviewKYC = async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'KYC record not found' });
     }
 
+    // UPDATE USER STATUS BASED ON KYC DECISION
     if (status === 'approved') {
       await pool.query(`UPDATE users SET status = 'active', updated_at = CURRENT_TIMESTAMP WHERE id = $1`, [id]);
+      
+      // GET USER INFO FOR EMAIL
+      const userResult = await pool.query(
+        `SELECT email, first_name FROM users WHERE id = $1`,
+        [id]
+      );
+      
+      if (userResult.rows.length > 0) {
+        const user = userResult.rows[0];
+        
+        // SEND APPROVAL EMAIL
+        try {
+          await emailService.sendAccountApprovalEmail(user.email, {
+            firstName: user.first_name
+          });
+          logger.info(`Account approval email sent to: ${user.email}`);
+        } catch (emailError) {
+          logger.error('Failed to send approval email:', emailError);
+          // Don't fail the KYC approval if email fails
+        }
+      }
     }
+    
     if (status === 'rejected') {
       await pool.query(`UPDATE users SET status = 'suspended', updated_at = CURRENT_TIMESTAMP WHERE id = $1`, [id]);
     }

@@ -9,15 +9,33 @@ const emailService = require('../services/email.service');
  * @access  Public (authenticated users get user_id attached)
  */
 const createTicket = asyncHandler(async (req, res) => {
-  const { subject, category, message, priority = 'normal', email, name } = req.body;
+  const { subject, category, message, priority, email, name } = req.body;
   
   // If user is authenticated, use their info
   const userId = req.user?.id || null;
   const userEmail = req.user?.email || email;
   const userName = req.user ? `${req.user.firstName} ${req.user.lastName}` : name;
+  const ticketPriority = priority || 'normal';
 
-  if (!userEmail || !userName) {
-    throw new AppError('Email and name are required for anonymous submissions', 400);
+  // Validate required fields
+  if (!userEmail || userEmail.trim() === '') {
+    throw new AppError('Email is required', 400);
+  }
+
+  if (!userName || userName.trim() === '') {
+    throw new AppError('Name is required', 400);
+  }
+
+  if (!subject || subject.trim() === '') {
+    throw new AppError('Subject is required', 400);
+  }
+
+  if (!category) {
+    throw new AppError('Category is required', 400);
+  }
+
+  if (!message || message.trim() === '') {
+    throw new AppError('Message is required', 400);
   }
 
   const result = await transaction(async (client) => {
@@ -31,7 +49,7 @@ const createTicket = asyncHandler(async (req, res) => {
         user_id, ticket_number, subject, category, priority, status, email, name
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *`,
-      [userId, ticketNumber, subject, category, priority, 'open', userEmail, userName]
+      [userId, ticketNumber, subject, category, ticketPriority, 'open', userEmail, userName]
     );
 
     const ticket = ticketResult.rows[0];
@@ -47,13 +65,16 @@ const createTicket = asyncHandler(async (req, res) => {
   });
 
   // Send confirmation email
-  await emailService.sendSupportTicketConfirmation(userEmail, {
-    ticketNumber: result.ticket_number,
-    subject: result.subject,
-    name: userName
-  });
-
-  // TODO: Send notification to support team
+  try {
+    await emailService.sendSupportTicketConfirmation(userEmail, {
+      ticketNumber: result.ticket_number,
+      subject: result.subject,
+      name: userName
+    });
+  } catch (emailError) {
+    logger.error('Failed to send support ticket confirmation email:', emailError);
+    // Don't fail ticket creation if email fails
+  }
 
   logger.info(`Support ticket created: ${result.ticket_number} by ${userEmail}`);
 

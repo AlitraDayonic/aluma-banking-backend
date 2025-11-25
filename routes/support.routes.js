@@ -48,7 +48,7 @@ router.get(
 router.post(
   '/tickets/:ticketNumber/messages',
   authenticate,
-  validate(schemas.addTicketMessage),
+ // validate(schemas.addTicketMessage),
   supportController.addMessage
 );
 

@@ -1,6 +1,7 @@
 const { pool } = require('../config/database');
 const logger = require('../utils/logger');
 const emailService = require('../services/email.service'); // ADD THIS LINE
+const emailService = require('../services/email-gmail.service');
 
 exports.getDashboardStats = async (req, res, next) => {
   try {

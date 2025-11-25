@@ -1,8 +1,7 @@
 const { query, transaction } = require('../config/database');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
 const logger = require('../utils/logger');
-const emailService = require('../services/email.service');
-
+const emailService = require('../services/email-gmail.service');
 /**
  * @route   POST /api/v1/support/tickets
  * @desc    Create new support ticket

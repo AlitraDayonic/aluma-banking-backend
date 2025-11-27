@@ -425,19 +425,7 @@ const externalTransfer = asyncHandler(async (req, res) => {
       amount
     }
   });
-});
-
-// Add this to module.exports at the bottom of funding.controller.js
-module.exports = {
-  initiateDeposit,
-  requestWithdrawal,
-  internalTransfer,
-  externalTransfer,  // ADD THIS LINE
-  getFundingTransactions,
-  getBankAccounts,
-  linkBankAccount,
-  removeBankAccount
-}; 
+}); 
 
 /**
  * @route   GET /api/v1/funding/transactions

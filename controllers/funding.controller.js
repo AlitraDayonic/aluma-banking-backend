@@ -651,5 +651,6 @@ module.exports = {
   getFundingTransactions,
   getBankAccounts,
   linkBankAccount,
+  externalTransfer,
   removeBankAccount
 };

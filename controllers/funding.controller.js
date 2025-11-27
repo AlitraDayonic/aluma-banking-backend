@@ -648,9 +648,9 @@ module.exports = {
   initiateDeposit,
   requestWithdrawal,
   internalTransfer,
+  externalTransfer,
   getFundingTransactions,
   getBankAccounts,
   linkBankAccount,
-  externalTransfer,
   removeBankAccount
 };

@@ -1,6 +1,6 @@
 const { pool } = require('../config/database');
 const logger = require('../utils/logger');
-const emailService = require('../services/email-gmail.service');
+const emailService = require('../services/email-resend.service');
 exports.getDashboardStats = async (req, res, next) => {
   try {
     const usersStats = await pool.query(`

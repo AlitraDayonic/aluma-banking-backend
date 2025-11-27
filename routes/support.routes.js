@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const supportController = require('../controllers/support.controller');
-const { validate, schemas } = require('../middleware/validate');
 const { authenticate, optionalAuth } = require('../middleware/auth');
 const { authLimiter } = require('../middleware/rateLimiter');
 
@@ -14,7 +13,6 @@ router.post(
   '/tickets',
   authLimiter,
   optionalAuth,
-  validate(schemas.createSupportTicket),
   supportController.createTicket
 );
 
@@ -48,7 +46,6 @@ router.get(
 router.post(
   '/tickets/:ticketNumber/messages',
   authenticate,
- // validate(schemas.addTicketMessage),
   supportController.addMessage
 );
 
@@ -60,7 +57,6 @@ router.post(
 router.patch(
   '/tickets/:ticketNumber/status',
   authenticate,
-  validate(schemas.updateTicketStatus),
   supportController.updateTicketStatus
 );
 

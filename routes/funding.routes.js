@@ -1,4 +1,3 @@
-
 // ============================================
 // routes/funding.routes.js
 // ============================================
@@ -11,6 +10,7 @@ const { validate: validate5, schemas: schemas5 } = require('../middleware/valida
 router5.post('/deposits', auth5, requireEmail5, validate5(schemas5.deposit), fundingController.initiateDeposit);
 router5.post('/withdrawals', auth5, requireEmail5, validate5(schemas5.withdrawal), fundingController.requestWithdrawal);
 router5.post('/transfers', auth5, requireEmail5, fundingController.internalTransfer);
+router5.post('/transfers/external', auth5, requireEmail5, fundingController.externalTransfer); // NEW ROUTE
 router5.get('/transactions', auth5, fundingController.getFundingTransactions);
 router5.get('/bank-accounts', auth5, fundingController.getBankAccounts);
 router5.post('/bank-accounts', auth5, fundingController.linkBankAccount);

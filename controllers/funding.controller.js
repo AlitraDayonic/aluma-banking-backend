@@ -306,6 +306,139 @@ const internalTransfer = asyncHandler(async (req, res) => {
   });
 });
 
+     /**
+ * @route   POST /api/v1/funding/transfers/external
+ * @desc    Transfer to another user's account by account number
+ * @access  Private
+ */
+const externalTransfer = asyncHandler(async (req, res) => {
+  const { fromAccountId, toAccountNumber, amount, notes } = req.body;
+  const userId = req.user.id;
+
+  // Verify source account ownership
+  const fromAccountResult = await query(
+    'SELECT * FROM accounts WHERE id = $1 AND user_id = $2 AND status = $3',
+    [fromAccountId, userId, 'active']
+  );
+
+  if (fromAccountResult.rows.length === 0) {
+    throw new AppError('Source account not found or inactive', 404);
+  }
+
+  const fromAccount = fromAccountResult.rows[0];
+
+  // Find destination account by account number
+  const toAccountResult = await query(
+    'SELECT * FROM accounts WHERE account_number = $1 AND status = $2',
+    [toAccountNumber, 'active']
+  );
+
+  if (toAccountResult.rows.length === 0) {
+    throw new AppError('Recipient account not found', 404);
+  }
+
+  const toAccount = toAccountResult.rows[0];
+
+  // Prevent transfer to same account
+  if (fromAccount.id === toAccount.id) {
+    throw new AppError('Cannot transfer to the same account', 400);
+  }
+
+  // Validate amount
+  if (amount <= 0) {
+    throw new AppError('Invalid transfer amount', 400);
+  }
+
+  // Check sufficient balance
+  const cashBalance = parseFloat(fromAccount.cash_balance);
+  if (cashBalance < amount) {
+    throw new AppError('Insufficient balance', 400);
+  }
+
+  // Get recipient user info for transaction description
+  const recipientResult = await query(
+    'SELECT first_name, last_name FROM users WHERE id = $1',
+    [toAccount.user_id]
+  );
+
+  const recipientName = recipientResult.rows.length > 0 
+    ? `${recipientResult.rows[0].first_name} ${recipientResult.rows[0].last_name}`.trim()
+    : 'Unknown';
+
+  // Get sender info
+  const senderResult = await query(
+    'SELECT first_name, last_name FROM users WHERE id = $1',
+    [userId]
+  );
+
+  const senderName = senderResult.rows.length > 0 
+    ? `${senderResult.rows[0].first_name} ${senderResult.rows[0].last_name}`.trim()
+    : 'Unknown';
+
+  // Perform transfer
+  await transaction(async (client) => {
+    // Deduct from source
+    await client.query(`
+      UPDATE accounts
+      SET cash_balance = cash_balance - $1
+      WHERE id = $2
+    `, [amount, fromAccount.id]);
+
+    // Add to destination
+    await client.query(`
+      UPDATE accounts
+      SET cash_balance = cash_balance + $1
+      WHERE id = $2
+    `, [amount, toAccount.id]);
+
+    // Create transaction records
+    await client.query(`
+      INSERT INTO transactions (
+        account_id, type, amount, description, status
+      ) VALUES 
+      ($1, $2, $3, $4, $5),
+      ($6, $7, $8, $9, $10)
+    `, [
+      fromAccount.id,
+      'transfer_out',
+      -amount,
+      `Transfer to ${recipientName} (${toAccount.account_number})${notes ? ': ' + notes : ''}`,
+      'completed',
+      toAccount.id,
+      'transfer_in',
+      amount,
+      `Transfer from ${senderName} (${fromAccount.account_number})${notes ? ': ' + notes : ''}`,
+      'completed'
+    ]);
+  });
+
+  logger.info(`External transfer: ${fromAccount.id} -> ${toAccount.id}, Amount: $${amount}`);
+
+  res.json({
+    success: true,
+    message: 'Transfer completed successfully',
+    data: {
+      fromAccount: fromAccount.id,
+      toAccount: toAccount.id,
+      toAccountNumber: toAccount.account_number,
+      recipientName: recipientName,
+      amount
+    }
+  });
+});
+
+// Add this to module.exports at the bottom of funding.controller.js
+module.exports = {
+  initiateDeposit,
+  requestWithdrawal,
+  internalTransfer,
+  externalTransfer,  // ADD THIS LINE
+  getFundingTransactions,
+  getBankAccounts,
+  linkBankAccount,
+  removeBankAccount
+}; 
+
 /**
  * @route   GET /api/v1/funding/transactions
  * @desc    Get funding transactions

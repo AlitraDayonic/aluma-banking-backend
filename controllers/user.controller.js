@@ -124,6 +124,113 @@ const changePassword = asyncHandler(async (req, res) => {
 });
 
 /**
+‎ * Set transaction PIN (first time)
+‎ */
+‎const setPin = asyncHandler(async (req, res) => {
+‎  const { pin } = req.body;
+‎  const userId = req.user.id;
+‎
+‎  // Check if user already has a PIN
+‎  const existingPin = await query(
+‎    'SELECT transaction_pin FROM users WHERE id = $1',
+‎    [userId]
+‎  );
+‎
+‎  if (existingPin.rows[0].transaction_pin) {
+‎    throw new AppError('PIN already set. Use change PIN instead.', 400);
+‎  }
+‎
+‎  // Store PIN (plain text for now - can hash later if needed)
+‎  await query(
+‎    'UPDATE users SET transaction_pin = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+‎    [pin, userId]
+‎  );
+‎
+‎  logger.info(`Transaction PIN set for user: ${userId}`);
+‎
+‎  res.json({
+‎    success: true,
+‎    message: 'Transaction PIN set successfully'
+‎  });
+‎});
+‎
+‎/**
+‎ * Change transaction PIN
+‎ */
+‎const changePin = asyncHandler(async (req, res) => {
+‎  const { currentPin, newPin } = req.body;
+‎  const userId = req.user.id;
+‎
+‎  // Get current PIN
+‎  const result = await query(
+‎    'SELECT transaction_pin FROM users WHERE id = $1',
+‎    [userId]
+‎  );
+‎
+‎  if (!result.rows[0].transaction_pin) {
+‎    throw new AppError('No PIN set. Please set a PIN first.', 400);
+‎  }
+‎
+‎  // Verify current PIN
+‎  if (result.rows[0].transaction_pin !== currentPin) {
+‎    throw new AppError('Current PIN is incorrect', 401);
+‎  }
+‎
+‎  // Update to new PIN
+‎  await query(
+‎    'UPDATE users SET transaction_pin = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+‎    [newPin, userId]
+‎  );
+‎
+‎  logger.info(`Transaction PIN changed for user: ${userId}`);
+‎
+‎  res.json({
+‎    success: true,
+‎    message: 'Transaction PIN changed successfully'
+‎  });
+‎});
+‎
+‎/**
+‎ * Check if user has PIN
+‎ */
+‎const checkPinStatus = asyncHandler(async (req, res) => {
+‎  const userId = req.user.id;
+‎
+‎  const result = await query(
+‎    'SELECT transaction_pin FROM users WHERE id = $1',
+‎    [userId]
+‎  );
+‎
+‎  const hasPin = !!result.rows[0].transaction_pin;
+‎
+‎  res.json({
+‎    success: true,
+‎    data: { hasPin }
+‎  });
+‎});
+‎
+‎/**
+‎ * Reset PIN (admin only or with email verification)
+‎ */
+‎const resetPin = asyncHandler(async (req, res) => {
+‎  const userId = req.user.id;
+‎
+‎  // Clear the PIN
+‎  await query(
+‎    'UPDATE users SET transaction_pin = NULL, updated_at = CURRENT_TIMESTAMP WHERE id = $1',
+‎    [userId]
+‎  );
+‎
+‎  logger.info(`Transaction PIN reset for user: ${userId}`);
+‎
+‎  res.json({
+‎    success: true,
+‎    message: 'Transaction PIN reset successfully. Please set a new PIN.'
+‎  });
+‎});
+
+
+/**
  * Setup 2FA
  */
 const setup2FA = asyncHandler(async (req, res) => {

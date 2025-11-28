@@ -150,6 +150,45 @@ const schemas = {
       })
   }),
 
+
+‎// Add these to your existing schemas object in validate.js:
+‎
+‎setPin: Joi.object({
+‎  pin: Joi.string().length(4).pattern(/^\d{4}$/).required().messages({
+‎    'string.length': 'PIN must be exactly 4 digits',
+‎    'string.pattern.base': 'PIN must contain only numbers',
+‎    'any.required': 'PIN is required'
+‎  }),
+‎  confirmPin: Joi.string().length(4).pattern(/^\d{4}$/).required().valid(Joi.ref('pin')).messages({
+‎    'string.length': 'PIN must be exactly 4 digits',
+‎    'string.pattern.base': 'PIN must contain only numbers',
+‎    'any.only': 'PINs do not match',
+‎    'any.required': 'Confirm PIN is required'
+‎  })
+‎}),
+‎
+‎changePin: Joi.object({
+‎  currentPin: Joi.string().length(4).pattern(/^\d{4}$/).required().messages({
+‎    'string.length': 'Current PIN must be exactly 4 digits',
+‎    'string.pattern.base': 'Current PIN must contain only numbers',
+‎    'any.required': 'Current PIN is required'
+‎  }),
+‎  newPin: Joi.string().length(4).pattern(/^\d{4}$/).required().invalid(Joi.ref('currentPin')).messages({
+‎    'string.length': 'New PIN must be exactly 4 digits',
+‎    'string.pattern.base': 'New PIN must contain only numbers',
+‎    'any.invalid': 'New PIN must be different from current PIN',
+‎    'any.required': 'New PIN is required'
+‎  }),
+‎  confirmNewPin: Joi.string().length(4).pattern(/^\d{4}$/).required().valid(Joi.ref('newPin')).messages({
+‎    'string.length': 'PIN must be exactly 4 digits',
+‎    'string.pattern.base': 'PIN must contain only numbers',
+‎    'any.only': 'PINs do not match',
+‎    'any.required': 'Confirm new PIN is required'
+‎  })
+‎}),
+‎
+‎//
+
   // Watchlist schemas
   createWatchlist: Joi.object({
     name: Joi.string().min(1).max(100).required(),
